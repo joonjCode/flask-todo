@@ -38,13 +38,15 @@
           location.href = $(this).data('uri');
         }
       });
-    });
-    $(".recommend").on('click', function() {
-      if(confirm("정말로 추천하시겠습니까?")) {
+      $(".recommend").on('click', function () {
+        if (confirm("정말로 추천하시겠습니까?")) {
           location.href = $(this).data('uri');
-      }
-  });
+        }
+      });
+    });
   </script>
+  {%block script%}
+  {%endblock%}
 </body>
 
 </html>
