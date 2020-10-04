@@ -3,6 +3,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 import config
+from flaskext.markdown import Markdown
 
 naming_convention = {
     "ix": 'ix_%(column_0_label)s',
@@ -26,15 +27,17 @@ def create_app():
         migrate.init_app(app, db)
     from . import models
     # Blueprint
-    from .views import main_views, question_views,answer_views, auth_views, comment_views
+    from .views import main_views, question_views,answer_views, auth_views, comment_views, vote_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
     app.register_blueprint(auth_views.bp)
     app.register_blueprint(comment_views.bp)
+    app.register_blueprint(vote_views.bp)
 
     # Filter
     from .filter import format_datetime
     app.jinja_env.filters['datetime'] = format_datetime
-
+    # Markdown
+    Markdown(app, extensions=['nl2br', 'fenced_code'])
     return app
